@@ -12,8 +12,12 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
 const run = (command, args, options = {}) =>
-  execFileSync(command, args, { stdio: 'inherit', shell: process.platform === 'win32', ...options });
+  execFileSync(command, args, { stdio: 'inherit', ...options });
 const read = (command, args) => execFileSync(command, args, { encoding: 'utf8' }).trim();
+
+// npm is `npm.cmd` on Windows, which Node will only launch through a shell. Git
+// must NOT go through one: the shell would split a commit message on spaces.
+const npm = (...args) => run('npm', args, { shell: process.platform === 'win32' });
 
 const remote = read('git', ['remote', 'get-url', 'origin']);
 const name = read('git', ['config', 'user.name']);
@@ -22,8 +26,8 @@ const sourceCommit = read('git', ['rev-parse', '--short', 'HEAD']);
 
 // A broken level must never reach the live site: the content lint executes every
 // authored solution against its own tests.
-run('npm', ['test']);
-run('npm', ['run', 'build']);
+npm('test');
+npm('run', 'build');
 
 const stage = mkdtempSync(join(tmpdir(), 'codequest-pages-'));
 try {
