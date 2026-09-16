@@ -1,0 +1,409 @@
+.player {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1.2rem 1rem 9rem;
+  padding-left: max(1rem, env(safe-area-inset-left));
+  padding-right: max(1rem, env(safe-area-inset-right));
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* ---- Header -------------------------------------------------------------- */
+
+.player__header {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--line-soft);
+  margin-bottom: 1.6rem;
+}
+
+.player__titles {
+  flex: 1;
+  min-width: 0;
+}
+
+.player__chapter {
+  font-size: 0.75rem;
+  color: var(--text-faint);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.player__level {
+  font-weight: 650;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.boss-tag {
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  font-weight: 800;
+  background: linear-gradient(180deg, var(--gold), #e0a028);
+  color: #3a2200;
+  padding: 0.12rem 0.4rem;
+  border-radius: 5px;
+}
+
+.player__dots {
+  display: flex;
+  gap: 0.28rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  max-width: 45%;
+}
+
+.qdot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+}
+
+.qdot--done {
+  background: var(--green);
+  border-color: transparent;
+}
+
+.qdot--current {
+  background: var(--accent);
+  border-color: transparent;
+  box-shadow: 0 0 0 3px rgba(108, 140, 255, 0.22);
+}
+
+/* ---- Intro cards --------------------------------------------------------- */
+
+.intro {
+  display: grid;
+  gap: 1.3rem;
+  justify-items: center;
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.intro__badge {
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #b9c8ff;
+  background: rgba(108, 140, 255, 0.16);
+  border: 1px solid rgba(108, 140, 255, 0.3);
+  padding: 0.3rem 0.85rem;
+  border-radius: 999px;
+}
+
+.intro__card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 2rem 1.8rem;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  max-width: 620px;
+  box-shadow: var(--shadow);
+  animation: card-in 0.3s ease both;
+}
+
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+.intro__dots {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--line);
+}
+
+.dot--on {
+  background: var(--accent);
+  width: 20px;
+  border-radius: 999px;
+}
+
+.intro__actions {
+  display: flex;
+  gap: 0.6rem;
+}
+
+/* ---- Question shell ------------------------------------------------------ */
+
+.question__kind {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-faint);
+  margin-bottom: 0.5rem;
+}
+
+.question__prompt {
+  font-size: 1.32rem;
+  margin-bottom: 1.2rem;
+}
+
+.hints {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 1.2rem;
+}
+
+.hints__item {
+  display: flex;
+  gap: 0.6rem;
+  background: rgba(255, 196, 77, 0.09);
+  border: 1px solid rgba(255, 196, 77, 0.28);
+  border-radius: var(--radius-sm);
+  padding: 0.7rem 0.9rem;
+  font-size: 0.92rem;
+  color: #f2e2bd;
+  animation: card-in 0.25s ease both;
+}
+
+.hints__icon {
+  flex-shrink: 0;
+}
+
+/* ---- Footer, feedback ---------------------------------------------------- */
+
+.player__footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, rgba(13, 18, 32, 0) 0%, var(--bg) 22%);
+  padding: 1.5rem 1rem 1.1rem;
+  /* Keeps the buttons clear of the iPhone home indicator. */
+  padding-bottom: calc(1.1rem + env(safe-area-inset-bottom));
+  z-index: 20;
+}
+
+/* On a touch device the on-screen keyboard already owns the bottom of the
+   screen, so a fixed footer there would either be buried under it or hover
+   awkwardly over it. Give the editor the room while it is being typed in. */
+@media (hover: none) {
+  .player:has(.cm-editor.cm-focused) .player__footer {
+    display: none;
+  }
+}
+
+.player__controls,
+.feedback {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.player__controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+}
+
+.feedback {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-radius: var(--radius);
+  padding: 0.95rem 1.1rem;
+  margin-bottom: 0.7rem;
+  animation: feedback-in 0.22s ease both;
+}
+
+@keyframes feedback-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+.feedback__main {
+  flex: 1;
+  min-width: 0;
+}
+
+.feedback__title {
+  font-weight: 700;
+  margin-bottom: 0.1rem;
+}
+
+/* Opaque, not translucent: the footer floats over the question, and a
+   see-through panel lets the text underneath bleed into the explanation. */
+.feedback--correct {
+  background: #10261f;
+  border: 1px solid rgba(47, 207, 143, 0.45);
+}
+
+.feedback--correct .feedback__title {
+  color: var(--green);
+}
+
+.feedback--wrong {
+  background: #2a1620;
+  border: 1px solid rgba(255, 107, 122, 0.42);
+}
+
+.feedback--wrong .feedback__title {
+  color: var(--red);
+}
+
+.feedback__sub {
+  font-size: 0.83rem;
+  color: var(--text-dim);
+}
+
+.feedback__explanation {
+  font-size: 0.92rem;
+  color: #dbe5ff;
+}
+
+/* ---- Summary ------------------------------------------------------------- */
+
+.summary {
+  display: grid;
+  gap: 1.4rem;
+  padding: 1rem 0 2rem;
+}
+
+/* Grid and flex items default to min-width:auto, which refuses to shrink below
+   their content. The ellipsis on the question text only works if every
+   ancestor between it and the page is allowed to get narrow too. */
+.summary > *,
+.summary__list > * {
+  min-width: 0;
+}
+
+.summary__hero {
+  display: grid;
+  justify-items: center;
+  gap: 0.5rem;
+  text-align: center;
+}
+
+.summary__hero h2 {
+  font-size: 1.7rem;
+}
+
+.summary__subtitle {
+  color: var(--text-dim);
+  font-size: 0.92rem;
+}
+
+.summary__stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.7rem;
+}
+
+.stat {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 0.9rem;
+  text-align: center;
+}
+
+.stat__value {
+  font-size: 1.45rem;
+  font-weight: 750;
+  color: var(--accent);
+}
+
+.stat__label {
+  font-size: 0.75rem;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.summary__tip {
+  text-align: center;
+  font-size: 0.87rem;
+  color: var(--text-dim);
+}
+
+.summary__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.summary__row {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-sm);
+  padding: 0.55rem 0.8rem;
+  font-size: 0.86rem;
+}
+
+.summary__index {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--surface-2);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+
+.summary__question {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--text-dim);
+}
+
+.summary__score {
+  font-size: 0.76rem;
+  white-space: nowrap;
+}
+
+.summary__score--high {
+  color: var(--green);
+}
+.summary__score--mid {
+  color: var(--gold);
+}
+.summary__score--low {
+  color: var(--red);
+}
+
+.summary__actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 560px) {
+  .player__dots {
+    display: none;
+  }
+  .question__prompt {
+    font-size: 1.15rem;
+  }
+  .feedback {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "CodeQuest — Learn to Code From Zero",
+  "short_name": "CodeQuest",
+  "description": "Learn programming from absolute zero up to real JavaScript, one level at a time.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0d1220",
+  "theme_color": "#0d1220",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
